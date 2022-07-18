@@ -15,6 +15,7 @@ class Notion {
     'column_list' => '\b3co\notion\block\Columns',
     'column'      => '\b3co\notion\block\Column',
     'divider'     => '\b3co\notion\block\Divider',
+    'quote'       => '\b3co\notion\block\Quote',
   ];
 
   private static $endpoints = [
