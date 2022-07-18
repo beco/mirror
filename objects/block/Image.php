@@ -57,6 +57,11 @@ class Image extends Block implements BlockInterface, Uploadable {
 
   public function uploadToS3():bool {
     if($this->isUploaded()) {
+      $this->url = sprintf("https://s3.%s.amazonaws.com/%s/%s",
+        'us-east-2',
+        'static.notion.b3co.com',
+        $this->getS3Key()
+      );
       return true;
     }
 
@@ -79,10 +84,11 @@ class Image extends Block implements BlockInterface, Uploadable {
   }
 
   public function toHtml($container = 'div') {
-    $ret  = sprintf("<img src='%s'>", $this->url);
+    $ret = sprintf("<figure><img src='%s'>", $this->url);
     if($this->caption != '') {
-      $ret .= sprintf("<p class='caption'>%s</p>", $this->caption);
+      $ret .= sprintf("<figcaption>👆 %s</figcaption>", $this->caption);
     }
+    $ret .= "</figure>";
     return sprintf(Block::$html_containers[$container], $ret);
   }
 
