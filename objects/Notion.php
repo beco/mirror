@@ -14,6 +14,7 @@ class Notion {
     'to_do'       => '\b3co\notion\block\ToDo',
     'column_list' => '\b3co\notion\block\Columns',
     'column'      => '\b3co\notion\block\Column',
+    'divider'     => '\b3co\notion\block\Divider',
   ];
 
   private static $endpoints = [
@@ -70,15 +71,14 @@ class Notion {
     return $url;
   }
 
-  public function getChildren($id) {
+  public function getChildren($id, $upload = false) {
     $blocks = json_decode($this->getNodesFrom($id), true);
     $children = [];
     foreach($blocks['results'] as $block) {
-      if(!Notion::$classes[$block['type']]) {
-        if(VERBOSE) printf("no class for %s\n", $block['type']);
-      } else {
-        if(VERBOSE) printf("instantiating %s\n", $block['type']);
+      if(Notion::$classes[$block['type']]) {
         $children[] = new Notion::$classes[$block['type']]($block, $upload);
+      } else {
+        if(VERBOSE) printf("no class for %s\n", $block['type']);
       }
     }
     return $children;

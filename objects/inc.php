@@ -15,3 +15,4 @@ require_once("block/ToDo.php");
 require_once("block/RichText.php");
 require_once("block/Columns.php");
 require_once("block/Column.php");
+require_once("block/Divider.php");
