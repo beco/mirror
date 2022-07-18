@@ -6,12 +6,14 @@ use GuzzleHttp\Client;
 class Notion {
 
   public static $classes = [
-    'image'     => '\b3co\notion\block\Image',
-    'paragraph' => '\b3co\notion\block\Paragraph',
-    'heading_1' => '\b3co\notion\block\H1',
-    'heading_2' => '\b3co\notion\block\H2',
-    'heading_3' => '\b3co\notion\block\H3',
-    'to_do'     => '\b3co\notion\block\ToDo',
+    'image'       => '\b3co\notion\block\Image',
+    'paragraph'   => '\b3co\notion\block\Paragraph',
+    'heading_1'   => '\b3co\notion\block\H1',
+    'heading_2'   => '\b3co\notion\block\H2',
+    'heading_3'   => '\b3co\notion\block\H3',
+    'to_do'       => '\b3co\notion\block\ToDo',
+    'column_list' => '\b3co\notion\block\Columns',
+    'column'      => '\b3co\notion\block\Column',
   ];
 
   private static $endpoints = [
@@ -66,6 +68,20 @@ class Notion {
       }
     }
     return $url;
+  }
+
+  public function getChildren($id) {
+    $blocks = json_decode($this->getNodesFrom($id), true);
+    $children = [];
+    foreach($blocks['results'] as $block) {
+      if(!Notion::$classes[$block['type']]) {
+        if(VERBOSE) printf("no class for %s\n", $block['type']);
+      } else {
+        if(VERBOSE) printf("instantiating %s\n", $block['type']);
+        $children[] = new Notion::$classes[$block['type']]($block, $upload);
+      }
+    }
+    return $children;
   }
 
 }

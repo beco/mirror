@@ -6,35 +6,32 @@ class Page {
   public $id;
   public $title = '';
   public $icon  = '';
+  public $children = [];
 
   private $raw  = '';
   private $notion;
   private $blocks;
+  private $title_object;
 
   public function __construct($id, $upload = false) {
+    // refactor to use/access Notion object in a smarter way
     $notion = new Notion;
 
     $data = json_decode($notion->getPage($id), true);
 
     $this->raw   = $data;
     $this->id    = $data['id'];
-    $this->title = $data['properties']['title']['title'][0]['plain_text'];
     $this->icon  = $data['icon']['emoji'];
 
-    $blocks = json_decode($notion->getNodesFrom($this->id), true);
-    foreach($blocks['results'] as $block) {
-      if(!Notion::$classes[$block['type']]) {
-        if(VERBOSE) printf("no class for %s\n", $block['type']);
-      } else {
-        if(VERBOSE) printf("instantiating %s\n", $block['type']);
-        $this->blocks[] = new Notion::$classes[$block['type']]($block, $upload);
-      }
-    }
+    $this->title_object = new RichText($data['properties']['title']['title'])
+    $this->title = $this->title_object->getPlainText();
+
+    $this->children = $notion->getChildren($this->id);
   }
 
   public function toString() {
     $ret = sprintf("%s %s\n", $this->icon, $this->title);
-    foreach($this->blocks as $b) {
+    foreach($this->children as $b) {
       $ret .= sprintf("- %s\n", $b->toString());
     }
     return $ret;
@@ -44,9 +41,18 @@ class Page {
     $ret  = sprintf("%s %s\n", $this->icon, $this->title);
     $ret .= str_repeat("=", strlen($ret));
     $ret .= "\n";
-    foreach($this->blocks as $b) {
+    foreach($this->children as $b) {
       $ret .= sprintf("%s\n", $b->toMarkDown());
     }
+    return $ret;
+  }
+
+  public function toHtml() {
+    $ret = sprintf("<title>%s %s</title>\n", $this->icon, $this->title);
+    foreach($this->children as $b) {
+      $ret .= sprintf("%s\n", $b->toHtml());
+    }
+
     return $ret;
   }
 

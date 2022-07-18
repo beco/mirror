@@ -13,3 +13,5 @@ require_once("block/H2.php");
 require_once("block/H3.php");
 require_once("block/ToDo.php");
 require_once("block/RichText.php");
+require_once("block/Columns.php");
+require_once("block/Column.php");
