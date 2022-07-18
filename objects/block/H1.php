@@ -6,7 +6,7 @@ require_once("BlockInterface.php");
 
 class H1 extends Block implements BlockInterface {
 
-  private $text_object;
+  public $text_object;
 
   public function __construct($data, $upload = false) {
     parent::__construct($data);

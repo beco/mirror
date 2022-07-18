@@ -9,7 +9,7 @@ class Column extends Block implements BlockInterface {
   public $text_object;
 
   public function __construct($data, $upload = false) {
-    parent::__construct($data);
+    parent::__construct($data, $upload);
   }
 
   public function toString() {

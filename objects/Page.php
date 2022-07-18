@@ -2,6 +2,8 @@
 
 namespace b3co\notion;
 
+use b3co\notion\block\RichText;
+
 class Page {
   public $id;
   public $title = '';
@@ -23,10 +25,10 @@ class Page {
     $this->id    = $data['id'];
     $this->icon  = $data['icon']['emoji'];
 
-    $this->title_object = new RichText($data['properties']['title']['title'])
+    $this->title_object = new RichText($data['properties']['title']['title']);
     $this->title = $this->title_object->getPlainText();
 
-    $this->children = $notion->getChildren($this->id);
+    $this->children = $notion->getChildren($this->id, $upload);
   }
 
   public function toString() {
