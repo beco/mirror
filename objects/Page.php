@@ -11,7 +11,7 @@ class Page {
   private $notion;
   private $blocks;
 
-  public function __construct($id) {
+  public function __construct($id, $upload = false) {
     $notion = new Notion;
 
     $data = json_decode($notion->getPage($id), true);
@@ -27,22 +27,23 @@ class Page {
         if(VERBOSE) printf("no class for %s\n", $block['type']);
       } else {
         if(VERBOSE) printf("instantiating %s\n", $block['type']);
-        $this->blocks[] = new Notion::$classes[$block['type']]($block);
+        $this->blocks[] = new Notion::$classes[$block['type']]($block, $upload);
       }
     }
   }
 
   public function toString() {
-    $ret = "";
+    $ret = sprintf("%s %s\n", $this->icon, $this->title);
     foreach($this->blocks as $b) {
-      $ret .= sprintf("- %s", $b->toString());
+      $ret .= sprintf("- %s\n", $b->toString());
     }
-    return sprintf("--page--\n%s %s (%s)\n%s\n",
-      $this->icon, $this->title, $this->id, $ret);
+    return $ret;
   }
 
   public function toMarkDown() {
-    $ret = sprintf("# %s %s\n", $this->icon, $this->title);
+    $ret  = sprintf("%s %s\n", $this->icon, $this->title);
+    $ret .= str_repeat("=", strlen($ret));
+    $ret .= "\n";
     foreach($this->blocks as $b) {
       $ret .= sprintf("%s\n", $b->toMarkDown());
     }

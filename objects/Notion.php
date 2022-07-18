@@ -6,11 +6,12 @@ use GuzzleHttp\Client;
 class Notion {
 
   public static $classes = [
-    'image' => '\b3co\notion\block\Image',
+    'image'     => '\b3co\notion\block\Image',
     'paragraph' => '\b3co\notion\block\Paragraph',
     'heading_1' => '\b3co\notion\block\H1',
     'heading_2' => '\b3co\notion\block\H2',
     'heading_3' => '\b3co\notion\block\H3',
+    'to_do'     => '\b3co\notion\block\ToDo',
   ];
 
   private static $endpoints = [

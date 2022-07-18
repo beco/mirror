@@ -8,7 +8,7 @@ class H3 extends Block implements BlockInterface {
 
   public $text;
 
-  public function __construct($data) {
+  public function __construct($data, $upload = false) {
     parent::__construct($data);
     $this->text = $data['heading_3']['rich_text'][0]['plain_text'];
   }
