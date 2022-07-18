@@ -53,6 +53,14 @@ class Image extends Block implements BlockInterface {
     }
   }
 
+  public function toHtml($container = 'div') {
+    $ret  = sprintf("<img src='%s'>", $this->url);
+    if($this->caption != '') {
+      $ret .= sprintf("<p class='caption'>%s</p>", $this->caption);
+    }
+    return sprintf(Block::$html_containers[$container], $ret);
+  }
+
   public function toString() {
     return sprintf("%s\n", $this->url);
   }

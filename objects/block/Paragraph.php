@@ -21,4 +21,8 @@ class Paragraph extends Block implements BlockInterface {
   public function toMarkDown() {
     return $this->text_object->getMarkDown();
   }
+
+  public function toHtml($container = 'div') {
+    return sprintf(Block::$html_containers[$container], $this->text_object->getHtml());
+  }
 }
