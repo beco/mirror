@@ -21,7 +21,7 @@ class ToDo extends Block implements BlockInterface {
   }
 
   public function toMarkDown() {
-    return sprintf("[%s] %s", $this->checked?"x":" ", $this->text_object->getMarkDown());
+    return sprintf("- [%s] %s", $this->checked?"x":" ", $this->text_object->getMarkDown());
   }
 
   public function toHtml($container = 'div') {
