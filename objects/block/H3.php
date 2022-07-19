@@ -2,14 +2,14 @@
 
 namespace b3co\notion\block;
 
-require_once("BlockInterface.php");
+require_once("Interfaces.php");
 
 class H3 extends Block implements BlockInterface {
 
   public $text_object;
 
-  public function __construct($data, $upload = false) {
-    parent::__construct($data);
+  public function __construct($data, $parent, $upload = false) {
+    parent::__construct($data, $parent);
     $this->text_object = new RichText($data['heading_3']['rich_text']);
   }
 

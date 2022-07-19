@@ -2,15 +2,15 @@
 
 namespace b3co\notion\block;
 
-require_once("BlockInterface.php");
+require_once("Interfaces.php");
 
 class Paragraph extends Block implements BlockInterface {
 
   public  $plain_text;
   private $text_object;
 
-  public function __construct($data, $upload = false) {
-    parent::__construct($data, $upload);
+  public function __construct($data, $parent, $upload = false) {
+    parent::__construct($data, $parent, $upload);
     $this->text_object = new RichText($data['paragraph']['rich_text']);
   }
 

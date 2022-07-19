@@ -2,7 +2,7 @@
 
 namespace b3co\notion\block;
 
-require_once("BlockInterface.php");
+require_once("Interfaces.php");
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
@@ -17,8 +17,8 @@ class Image extends Block implements BlockInterface, Uploadable {
   private $notion_url;
   private $s3;
 
-  public function __construct($data, $upload = false) {
-    parent::__construct($data, $upload);
+  public function __construct($data, $parent, $upload = false) {
+    parent::__construct($data, $parent, $upload);
     $this->caption = $this->getCaption($data['image']['caption']);
     $this->notion_url = $data['image']['file']['url'];
     $this->url = $this->notion_url;

@@ -20,14 +20,15 @@ class Block {
     'none' => '%s',
   ];
 
-  public function __construct($data, $upload = false) {
+  public function __construct($data, $parent, $upload = false) {
     $this->id           = $data['id'];
     $this->type         = $data['type'];
     $this->has_children = $data['has_children'];
     $this->raw          = $data;
+    $this->page_parent  = $parent;
 
     if(VERBOSE) printf("initializing %s\n", $this->type);
-    
+
     if($this->has_children == true) {
       $this->notion = new Notion();
       $this->children = $this->notion->getChildren($this->id, $upload);

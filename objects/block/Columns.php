@@ -2,14 +2,14 @@
 
 namespace b3co\notion\block;
 
-require_once("BlockInterface.php");
+require_once("Interfaces.php");
 
 class Columns extends Block implements BlockInterface {
 
   public $columns;
 
-  public function __construct($data, $upload = false) {
-    parent::__construct($data, $upload);
+  public function __construct($data, $parent, $upload = false) {
+    parent::__construct($data, $parent, $upload);
     printf("has %d columns\n", count($this->children));
   }
 

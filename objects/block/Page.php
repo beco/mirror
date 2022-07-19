@@ -1,8 +1,9 @@
 <?php
 
-namespace b3co\notion;
+namespace b3co\notion\block;
 
 use b3co\notion\block\RichText;
+use b3co\notion\Notion;
 
 class Page {
   public $id;

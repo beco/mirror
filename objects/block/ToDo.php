@@ -2,7 +2,7 @@
 
 namespace b3co\notion\block;
 
-require_once("BlockInterface.php");
+require_once("Interfaces.php");
 
 class ToDo extends Block implements BlockInterface {
 
@@ -10,8 +10,8 @@ class ToDo extends Block implements BlockInterface {
 
   private $text_object;
 
-  public function __construct($data, $upload = false) {
-    parent::__construct($data, $upload);
+  public function __construct($data, $parent, $upload = false) {
+    parent::__construct($data, $parent, $upload);
     $this->text_object = new RichText($data['to_do']['rich_text']);
     $this->checked = $data['to_do']['checked'] == 1;
   }
