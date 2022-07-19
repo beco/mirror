@@ -48,24 +48,28 @@ class Image extends Block implements BlockInterface, Uploadable {
   }
 
   public function getS3Key():string {
-    return sprintf("%s/%s.jpg",
-      //$this->parent_page->id,
+    return sprintf("%s/public/%s/%s.jpg",
+      $this->parent_page->id,
       $this->type,
       $this->id
     );
   }
 
+  public function getS3Url():string {
+    return sprintf("https://s3.%s.amazonaws.com/%s/%s",
+      'us-east-2',
+      'static.notion.b3co.com',
+      $this->getS3Key()
+    );
+  }
+
   public function uploadToS3():bool {
     if($this->isUploaded()) {
-      $this->url = sprintf("https://s3.%s.amazonaws.com/%s/%s",
-        'us-east-2',
-        'static.notion.b3co.com',
-        $this->getS3Key()
-      );
+      $this->url = $this->getS3Url();
       return true;
     }
 
-    if(VERBOSE) echo "- uploading image\n";
+    if(VERBOSE) printf("- uploading image [%s]\n", $this->getS3Key());
 
     $file = file_get_contents($this->notion_url, "r");
     try {

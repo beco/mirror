@@ -10,7 +10,7 @@ class Block {
 
   public $has_children;
   public $children;
-  public $parent_page_id;
+  public $parent_page;
 
   private $raw;
   private $notion;
@@ -25,13 +25,13 @@ class Block {
     $this->type         = $data['type'];
     $this->has_children = $data['has_children'];
     $this->raw          = $data;
-    $this->page_parent  = $parent;
+    $this->parent_page  = $parent;
 
     if(VERBOSE) printf("initializing %s\n", $this->type);
 
     if($this->has_children == true) {
       $this->notion = new Notion();
-      $this->children = $this->notion->getChildren($this->id, $upload);
+      $this->children = $this->notion->getChildren($this->id, $parent, $upload);
     }
 
     if($data['parent']['type'] == 'page_id') {

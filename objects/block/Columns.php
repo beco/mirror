@@ -10,7 +10,7 @@ class Columns extends Block implements BlockInterface {
 
   public function __construct($data, $parent, $upload = false) {
     parent::__construct($data, $parent, $upload);
-    printf("has %d columns\n", count($this->children));
+    if(VERBOSE) printf("has %d columns\n", count($this->children));
   }
 
   public function toString() {

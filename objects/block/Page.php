@@ -29,7 +29,7 @@ class Page {
     $this->title_object = new RichText($data['properties']['title']['title']);
     $this->title = $this->title_object->getPlainText();
 
-    $this->children = $notion->getChildren($this->id, $upload);
+    $this->children = $notion->getChildren($this->id, $this, $upload);
   }
 
   public function toString() {

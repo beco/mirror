@@ -72,7 +72,7 @@ class Notion {
     return $url;
   }
 
-  public function getChildren($id, $upload = false) {
+  public function getChildren($id, $page, $upload = false) {
     $blocks = json_decode($this->getNodesFrom($id), true);
     $children = [];
     foreach($blocks['results'] as $block) {
