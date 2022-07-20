@@ -79,7 +79,7 @@ class Notion {
       if(Notion::$classes[$block['type']]) {
         $children[] = new Notion::$classes[$block['type']]($block, $page, $upload);
       } else {
-        if(VERBOSE) printf("no class for %s\n", $block['type']);
+        if(VERBOSE) printf("🔴 no class for %s\n", $block['type']);
       }
     }
     return $children;
