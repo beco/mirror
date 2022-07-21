@@ -30,14 +30,32 @@ function readOptions($question, $options, $default = '') {
   return $a;
 }
 
-do {
+$c = true;
+
+if(isset($argv[1]) && preg_match('/^\w{32}$/', $argv[1])) {
+  $pid = $argv[1];
+  $c = false;
+} else {
   $pid = readline("page id: ");
-  $s3  = readOptions("upload to s3?", ['y', 'n']);
+}
+
+if(isset($argv[2]) && in_array($argv[2], ['html', 'text', 'md'])) {
+  $exp = $argv[2];
+} else {
+  $exp = readOptions("export format", ['html', 'text', 'md']);
+}
+
+if(isset($argv[3]) && in_array($argv[3], ['y', 'n'])) {
+  $s3 = $argv[3];
+} else {
+  $s3 = readOptions("upload to s3?", ['y', 'n']);
+}
+
+do {
   try {
     $n = new Notion($config);
     $p = $n->getPage($pid, $s3 == 'y'); // <- aquí
     printf("page loaded: %s\n", $p->title);
-    $exp = readOptions("export format", ['html', 'text', 'md']);
     switch($exp) {
       case 'html':
         echo $p->toHtml();
@@ -56,8 +74,8 @@ do {
     $p = null;
   }
   echo "------------------------\n";
-  $continue = readOptions("other?", ['y', 'n']);
-} while($continue === 'y');
+  $continue = $c?readOptions("other?", ['y', 'n']):$c;
+} while($c);
 
 //echo $p->toHtml();
 echo "Cool, 👋\n";
