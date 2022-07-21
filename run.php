@@ -3,10 +3,13 @@
 require 'objects/inc.php';
 require 'vendor/autoload.php';
 
+use b3co\notion\Notion;
 use b3co\notion\block\Page;
 
 define('ENV', getenv('env'));
 define('VERBOSE', ENV != 'prod');
+
+$config = require_once("config/app.php");
 
 if(VERBOSE) printf("ENV: %s\nVERBOSE: on\n", ENV);
 
@@ -31,27 +34,30 @@ do {
   $pid = readline("page id: ");
   $s3  = readOptions("upload to s3?", ['y', 'n']);
   try {
-    $p = new Page($pid);
+    $n = new Notion($config);
+    $p = $n->getPage($pid, $s3 == 'y'); // <- aquí
     printf("page loaded: %s\n", $p->title);
+    $exp = readOptions("export format", ['html', 'text', 'md']);
+    switch($exp) {
+      case 'html':
+        echo $p->toHtml();
+        break;
+      case 'md':
+        echo $p->toMarkDown();
+        break;
+      case 'text':
+        echo $p->toString();
+        break;
+    }
   } catch(Exception $e) {
     printf("[error] no page\n");
-  }
-  $exp = readOptions("export format", ['html', 'text', 'md']);
-  switch($exp) {
-    case 'html':
-      echo $p->toHtml();
-      break;
-    case 'md':
-      echo $p->toMarkDown();
-      break;
-    case 'text':
-      echo $p->toString();
-      break;
+    echo $e->getMessage();
+  } finally {
+    $p = null;
   }
   echo "------------------------\n";
   $continue = readOptions("other?", ['y', 'n']);
 } while($continue === 'y');
 
 //echo $p->toHtml();
-$t[] = time();
-printf("time elapsed: %ds\n", $t[count($t)-1] - $t[0]);
+echo "Cool, 👋\n";

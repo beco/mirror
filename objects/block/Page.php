@@ -10,17 +10,15 @@ class Page {
   public $title = '';
   public $icon  = '';
   public $children = [];
+  public $notion;
 
   private $raw  = '';
-  private $notion;
   private $blocks;
   private $title_object;
 
-  public function __construct($id, $upload = false) {
-    // refactor to use/access Notion object in a smarter way
-    $notion = new Notion;
-
-    $data = json_decode($notion->getPage($id), true);
+  public function __construct($id, $upload = false, $notion) {
+    $this->notion = $notion;
+    $data = json_decode($this->notion->retrieve('get_page', ['page_id' => $id]), true);
 
     $this->raw   = $data;
     $this->id    = $data['id'];

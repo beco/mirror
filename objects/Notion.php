@@ -2,6 +2,7 @@
 namespace b3co\notion;
 
 use GuzzleHttp\Client;
+use b3co\notion\block\Page;
 
 class Notion {
 
@@ -16,6 +17,8 @@ class Notion {
     'column'      => '\b3co\notion\block\Column',
     'divider'     => '\b3co\notion\block\Divider',
     'quote'       => '\b3co\notion\block\Quote',
+    'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
+    'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];
 
   private static $endpoints = [
@@ -31,14 +34,15 @@ class Notion {
 
   private $token = '';
   private $client;
+  private $config;
 
-  public function __construct() {
-    $this->token = getenv('notion_token');
+  public function __construct($config = []) {
+    $this->token = getenv('notion_token') or die("no notion token");
     $this->client = new Client();
   }
 
-  public function getPage($id) {
-    return $this->retrieve('get_page', ['page_id' => $id]);
+  public function getPage($id, $save = false) {
+    return new Page($id, $save, $this);
   }
 
   public function getNodesFrom($id) {
@@ -46,9 +50,10 @@ class Notion {
     return $content;
   }
 
-  private function retrieve($endpoint, $params = []) {
+  public function retrieve($endpoint, $params = []) {
     $url = $this->populateUrl($endpoint, $params);
     try {
+      printf("token: %s\n", $this->token);
       $response = $this->client->request('GET', $url, [
         'headers' => [
           'Accept'         => 'application/json',

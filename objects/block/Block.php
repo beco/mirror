@@ -11,9 +11,9 @@ class Block {
   public $has_children;
   public $children;
   public $parent_page;
+  public $notion;
 
   private $raw;
-  private $notion;
 
   protected static $html_containers = [
     'div'  => '<div class="element">%s</div>',
@@ -30,14 +30,14 @@ class Block {
     if(VERBOSE) printf("initializing %s\n", $this->type);
 
     if($this->has_children == true) {
-      $this->notion = new Notion();
-      $this->children = $this->notion->getChildren($this->id, $parent, $upload);
+      $this->children = $this->parent_page->notion->getChildren($this->id, $parent, $upload);
     }
 
     if($data['parent']['type'] == 'page_id') {
       $this->parent_page_id = $data['parent']['page_id'];
     }
   }
+
 
   public function getRaw() {
     return $this->raw;
