@@ -17,3 +17,5 @@ require_once("block/Columns.php");
 require_once("block/Column.php");
 require_once("block/Divider.php");
 require_once("block/Quote.php");
+require_once("block/BulletListItem.php");
+require_once("block/NumberListItem.php");
