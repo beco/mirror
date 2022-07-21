@@ -51,31 +51,28 @@ if(isset($argv[3]) && in_array($argv[3], ['y', 'n'])) {
   $s3 = readOptions("upload to s3?", ['y', 'n']);
 }
 
-do {
-  try {
-    $n = new Notion($config);
-    $p = $n->getPage($pid, $s3 == 'y'); // <- aquí
-    printf("page loaded: %s\n", $p->title);
-    switch($exp) {
-      case 'html':
-        echo $p->toHtml();
-        break;
-      case 'md':
-        echo $p->toMarkDown();
-        break;
-      case 'text':
-        echo $p->toString();
-        break;
-    }
-  } catch(Exception $e) {
-    printf("[error] no page\n");
-    echo $e->getMessage();
-  } finally {
-    $p = null;
+try {
+  $n = new Notion($config);
+  $p = $n->getPage($pid, $s3 == 'y'); // <- aquí
+  printf("page loaded: %s\n", $p->title);
+  switch($exp) {
+    case 'html':
+      echo $p->toHtml();
+      break;
+    case 'md':
+      echo $p->toMarkDown();
+      break;
+    case 'text':
+      echo $p->toString();
+      break;
   }
-  echo "------------------------\n";
-  $continue = $c?readOptions("other?", ['y', 'n']):$c;
-} while($c);
+} catch(Exception $e) {
+  printf("[error] no page\n");
+  echo $e->getMessage();
+} finally {
+  $p = null;
+}
+echo "------------------------\n";
 
 //echo $p->toHtml();
 echo "Cool, 👋\n";
