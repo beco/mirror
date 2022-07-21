@@ -25,8 +25,12 @@ class ToDo extends Block implements BlockInterface {
   }
 
   public function toHtml($container = 'div') {
-    $ret = sprintf("<input type=checkbox%s>%s",
-      $this->checked?" checked":"", $this->text_object->getHtml(''));
+    $text = $this->text_object->getHtml('');
+    if($this->checked) {
+      $text = sprintf("<strike>%s</strike>", $text);
+    }
+    $ret = sprintf("<input type=checkbox%s> %s",
+      $this->checked?" checked":"", $text);
     return sprintf(Block::$html_containers[$container], $ret);
   }
 }
