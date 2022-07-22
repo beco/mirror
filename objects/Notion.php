@@ -17,6 +17,7 @@ class Notion {
     'column'      => '\b3co\notion\block\Column',
     'divider'     => '\b3co\notion\block\Divider',
     'quote'       => '\b3co\notion\block\Quote',
+    'embed'       => '\b3co\notion\block\Embed',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];

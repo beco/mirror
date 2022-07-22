@@ -19,3 +19,4 @@ require_once("block/Divider.php");
 require_once("block/Quote.php");
 require_once("block/BulletListItem.php");
 require_once("block/NumberListItem.php");
+require_once("block/Embed.php");
