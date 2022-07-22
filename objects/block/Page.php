@@ -11,6 +11,7 @@ class Page {
   public $icon  = '';
   public $children = [];
   public $notion;
+  public $cover = null;
 
   private $raw  = '';
   private $blocks;
@@ -22,7 +23,12 @@ class Page {
 
     $this->raw   = $data;
     $this->id    = $data['id'];
+
     $this->icon  = $data['icon']['emoji'];
+
+    if($data['cover']) {
+      $this->cover = new Image($data, $this, $upload);
+    }
 
     $this->title_object = new RichText($data['properties']['title']['title']);
     $this->title = $this->title_object->getPlainText();
@@ -49,7 +55,13 @@ class Page {
   }
 
   public function toHtml() {
-    $ret = sprintf("<title>%s %s</title>\n", $this->icon, $this->title);
+    $ret  = sprintf("<title>%s %s</title>\n", $this->icon, $this->title);
+
+    if($this->cover) {
+      $ret .= sprintf("<img src='%s' style='width: 100%%; height: 200px; overflow: hidden; text-align: center;'>\n",
+        $this->cover->url);
+    }
+
     foreach($this->children as $b) {
       $ret .= sprintf("%s\n", $b->toHtml());
     }

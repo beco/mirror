@@ -19,9 +19,18 @@ class Image extends Block implements BlockInterface, Uploadable {
 
   public function __construct($data, $parent, $upload = false) {
     parent::__construct($data, $parent, $upload);
-    $this->caption = $this->getCaption($data['image']['caption']);
-    $this->notion_url = $data['image']['file']['url'];
+
+    $type = '';
+    if($data['object'] == 'page') {
+      $type = 'cover';
+    } else {
+      $type = 'image';
+    }
+
+    $this->caption = $this->getCaption($data[$type]['caption']);
+    $this->notion_url = $data[$type]['file']['url'];
     $this->url = $this->notion_url;
+
     if($upload) {
       if(VERBOSE) print "initializing S3 client\n";
       $this->s3 = new S3Client([
