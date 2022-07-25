@@ -2,16 +2,22 @@
 
 namespace b3co\notion\block;
 
+require 'objects/inc.php';
+
 use b3co\notion\block\RichText;
+use b3co\notion\block\Block;
 use b3co\notion\Notion;
 
-class Page {
+class Page extends Block {
   public $id;
   public $title = '';
+  public $body  = '';
   public $icon  = '';
+  public $type  = '';
+  public $cover = null;
+
   public $children = [];
   public $notion;
-  public $cover = null;
 
   private $raw  = '';
   private $blocks;
@@ -23,6 +29,7 @@ class Page {
 
     $this->raw   = $data;
     $this->id    = $data['id'];
+    $this->type  = 'page';
 
     $this->icon  = $data['icon']['emoji'];
 
@@ -71,5 +78,19 @@ class Page {
 
   public function getRaw() {
     return $this->raw;
+  }
+
+  public function toTemplate($template) {
+    $this->body = $this->getTemplateBody($template);
+    //echo $this->body;
+    return $this->renderTemplate($template);
+  }
+
+  private function getTemplateBody($template) {
+    $ret = '';
+    foreach($this->children as $b) {
+      $ret .= $b->toTemplate($template);
+    }
+    return $ret;
   }
 }

@@ -46,4 +46,40 @@ class Block {
   public function isPage() {
     return $this->type == 'page';
   }
+
+  public function getTemplate($template) {
+    $file = sprintf("templates/%s/%s.template",
+      $template,
+      $this->type
+    );
+    if(file_exists($file)) {
+      return file_get_contents($file);
+    }
+    return '';
+  }
+
+  public function renderTemplate($template):string {
+    $tmp  = $this->getTemplate($template);
+    $vars = [];
+    if(preg_match_all('/\[:([a-z0_9\_]+)\]/', $tmp, $m)) {
+      foreach($m[1] as $key) {
+        if(!$vars[$key]) {
+          $vars[$key] = $this->$key;
+          $tmp = preg_replace(
+            sprintf('/\[:%s\]/', $key),
+            $this->$key, $tmp);
+        }
+      }
+      return $tmp;
+    }
+    return '';
+  }
+
+  public function toTemplate($template) {
+    if($this->getTemplate($template) !== '') {
+      return $this->renderTemplate($template);
+    }
+    if(VERBOSE) printf("No template for %s\n", $this->type);
+    return $this->toHtml();
+  }
 }
