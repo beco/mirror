@@ -31,13 +31,24 @@ class Image extends Block implements BlockInterface, Uploadable {
     $this->notion_url = $data[$type]['file']['url'];
     $this->url = $this->notion_url;
 
+    if(VERBOSE) print "initializing S3 client\n";
+    $this->s3 = new S3Client([
+      'version' => 'latest',
+      'region'  => 'us-east-2',
+      'credentials' => [
+        'key' => $this->parent_page->notion->config['aws_key'],
+        'secret' => $this->parent_page->notion->config['aws_secret'],
+      ]
+    ]);
+
     if($upload) {
-      if(VERBOSE) print "initializing S3 client\n";
-      $this->s3 = new S3Client([
-        'version' => 'latest',
-        'region' => 'us-east-2'
-      ]);
       $this->uploadToS3();
+    } else {
+      // even if i am not uploading at the moment, check if already exists
+      // up there
+      if($this->isUploaded()) {
+        $this->url = $this->getS3Url();
+      }
     }
   }
 
@@ -90,8 +101,9 @@ class Image extends Block implements BlockInterface, Uploadable {
       ]);
       $this->url = $result->get('ObjectURL');
       return true;
-    } catch(AwsException $ae) {
-
+    } catch(AwsException $e) {
+      echo $e->getMessage();
+      echo "\n";
     }
     return false;
   }

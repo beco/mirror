@@ -38,10 +38,11 @@ class Notion {
 
   private $token = '';
   private $client;
-  private $config;
+  public $config;
 
   public function __construct($config = []) {
-    $this->token = $config['notion_token'] or die("no notion token");
+    $this->config = $config;
+    $this->token  = $config['notion_token'] or die("no notion token");
     $this->client = new Client();
   }
 
