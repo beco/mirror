@@ -2,8 +2,6 @@
 
 namespace b3co\notion\block;
 
-require_once("Interfaces.php");
-
 class Divider extends Block implements BlockInterface {
 
   public function __construct($data, $parent, $upload = false) {

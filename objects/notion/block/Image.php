@@ -2,8 +2,6 @@
 
 namespace b3co\notion\block;
 
-require_once("Interfaces.php");
-
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\Exception\S3Exception;

@@ -2,8 +2,6 @@
 
 namespace b3co\notion\block;
 
-require_once("Interfaces.php");
-
 class NumberListItem extends Block implements BlockInterface {
 
   public $text_object;

@@ -2,8 +2,6 @@
 
 namespace b3co\notion\block;
 
-require 'objects/inc.php';
-
 use b3co\notion\block\RichText;
 use b3co\notion\block\Block;
 use b3co\notion\Notion;

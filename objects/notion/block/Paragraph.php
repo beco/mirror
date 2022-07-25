@@ -2,8 +2,6 @@
 
 namespace b3co\notion\block;
 
-require_once("Interfaces.php");
-
 class Paragraph extends Block implements BlockInterface {
 
   public  $plain_text;

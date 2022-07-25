@@ -2,8 +2,6 @@
 
 namespace b3co\notion\block;
 
-require_once("Interfaces.php");
-
 class Embed extends Block implements BlockInterface {
 
   public $url;

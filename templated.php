@@ -1,7 +1,8 @@
 <?php
 
-require 'objects/inc.php';
 require 'vendor/autoload.php';
+require 'app/autoload.php';
+
 
 use b3co\notion\Notion;
 use b3co\notion\block\Page;
@@ -9,7 +10,7 @@ use b3co\notion\block\Page;
 define('ENV', getenv('env'));
 define('VERBOSE', ENV != 'prod');
 
-$config = require_once("config/app.php");
+$config = require_once("app/config.php");
 
 if(VERBOSE) printf("ENV: %s\nVERBOSE: on\n", ENV);
 
