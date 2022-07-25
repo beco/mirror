@@ -18,6 +18,8 @@ class Notion {
     'divider'     => '\b3co\notion\block\Divider',
     'quote'       => '\b3co\notion\block\Quote',
     'embed'       => '\b3co\notion\block\Embed',
+    'toggle'      => '\b3co\notion\block\Toggle',
+    'code'        => '\b3co\notion\block\Code',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];
@@ -126,6 +128,7 @@ class Notion {
     foreach($blocks as $block) {
       if(Notion::$classes[$block['type']]) {
         $children[] = new Notion::$classes[$block['type']]($block, $page, $upload);
+        if(VERBOSE) printf("✅ initializing %s\n", $block['type']);
       } else {
         if(VERBOSE) printf("🔴 no class for %s\n", $block['type']);
       }

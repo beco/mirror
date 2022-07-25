@@ -1,0 +1,7 @@
+<div>
+  <p class="toggle toggle-header">▶ [:title]</p>
+  <p style="padding-left:30px;margin-left:30px;background-color: #ccc;">[:children_body]
+  <hr width="30px" align="center">
+  </p>
+
+</div>

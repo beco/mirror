@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>[:icon] [:title]</title>
+    <style>
+    .toggle {}
+    .toggle-body {
+      padding-left: 30px;
+    }
+    </style>
+  </head>
+  <body>
+[:children_body]
+  </body>
+</html>

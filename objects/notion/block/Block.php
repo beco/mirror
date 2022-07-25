@@ -9,9 +9,10 @@ class Block {
   public $type;
 
   public $has_children;
-  public $children;
+  public $children = [];
   public $parent_page;
   public $notion;
+  public $upload;
 
   private $raw;
 
@@ -26,11 +27,10 @@ class Block {
     $this->has_children = $data['has_children'];
     $this->raw          = $data;
     $this->parent_page  = $parent;
-
-    if(VERBOSE) printf("initializing %s\n", $this->type);
+    $this->upload       = $upload;
 
     if($this->has_children == true) {
-      $this->children = $this->parent_page->notion->getChildren($this->id, $parent, $upload);
+      $this->children = $this->parent_page->notion->getChildren($this->id, $parent, $this->upload);
     }
 
     if($data['parent']['type'] == 'page_id') {
@@ -47,11 +47,19 @@ class Block {
     return $this->type == 'page';
   }
 
-  public function getTemplate($template) {
-    $file = sprintf("templates/%s/%s.template",
+  public function hasTemplate($template):bool {
+    return file_exists($this->getTemplateFileName($template));
+  }
+
+  public function getTemplateFileName($template):string {
+    return sprintf("templates/%s/%s.template",
       $template,
       $this->type
     );
+  }
+
+  public function getTemplate($template) {
+    $file = $this->getTemplateFileName($template);
     if(file_exists($file)) {
       return file_get_contents($file);
     }
@@ -81,5 +89,20 @@ class Block {
     }
     if(VERBOSE) printf("No template for %s\n", $this->type);
     return $this->toHtml();
+  }
+
+  public function getChildrenBody($template = 'html') {
+    if(count($this->children) == 0) {
+      return '';
+    }
+    $ret = '';
+    foreach($this->children as $block) {
+      if($template === 'html') {
+        $ret .= $block->toHtml();
+      } else {
+        $ret .= $block->renderTemplate($template);
+      }
+    }
+    return $ret;
   }
 }

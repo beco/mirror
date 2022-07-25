@@ -60,6 +60,12 @@ class Page extends Block {
   }
 
   public function toHtml() {
+
+    $this->children_body = $this->getChildrenBody();
+    if($this->hasTemplate('html')) {
+      return $this->renderTemplate('html');
+    }
+
     $ret  = sprintf("<title>%s %s</title>\n", $this->icon, $this->title);
 
     if($this->cover) {

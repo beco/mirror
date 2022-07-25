@@ -2,13 +2,16 @@
 
 namespace b3co\notion\block;
 
-class H2 extends Block implements BlockInterface {
+class Toggle extends Block implements BlockInterface {
 
   public $text_object;
+  public $title;
+  public $children_body;
 
   public function __construct($data, $parent, $upload = false) {
-    parent::__construct($data, $parent);
-    $this->text_object = new RichText($data['heading_2']['rich_text']);
+    parent::__construct($data, $parent, $upload);
+    $this->text_object = new RichText($data['toggle']['rich_text']);
+    $this->title = $this->text_object->getHtml();
   }
 
   public function toString() {
@@ -24,10 +27,6 @@ class H2 extends Block implements BlockInterface {
     if($this->hasTemplate('html')) {
       return $this->renderTemplate('html');
     }
-    $ret = sprintf("<h2>%s</h2>\n", $this->text_object->getHtml());
-    if($this->has_children) {
-      $ret .= sprintf("%s\n", $this->children_body);
-    }
-    return $ret;
+    return sprintf("%s", $this->text_object->getHtml());
   }
 }
