@@ -75,7 +75,8 @@ class Block {
           $vars[$key] = $this->$key;
           $tmp = preg_replace(
             sprintf('/\[:%s\]/', $key),
-            $this->$key, $tmp);
+            preg_replace('/\$/', '\\\$', $this->$key),
+            $tmp);
         }
       }
       return $tmp;
@@ -102,6 +103,7 @@ class Block {
       } else {
         $ret .= $block->renderTemplate($template);
       }
+      $ret .= "\n";
     }
     return $ret;
   }
