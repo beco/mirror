@@ -5,6 +5,7 @@ namespace b3co\notion\block;
 class Paragraph extends Block implements BlockInterface {
 
   public  $plain_text;
+  public  $text;
   private $text_object;
 
   public function __construct($data, $parent, $upload = false) {
@@ -21,6 +22,10 @@ class Paragraph extends Block implements BlockInterface {
   }
 
   public function toHtml($container = 'div') {
-    return sprintf(Block::$html_containers[$container], $this->text_object->getHtml());
+    $this->text = $this->text_object->getHtml();
+    if($this->hasTemplate('html')) {
+      return $this->renderTemplate('html');
+    }
+    return sprintf("%s", $this->text);
   }
 }
