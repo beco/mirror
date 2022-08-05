@@ -48,6 +48,7 @@ class Block {
   }
 
   public function hasTemplate($template):bool {
+    if(VERBOSE) printf("> %s\n", $this->getTemplateFileName($template));
     return file_exists($this->getTemplateFileName($template));
   }
 
