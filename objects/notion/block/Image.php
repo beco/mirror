@@ -25,9 +25,12 @@ class Image extends Block implements BlockInterface, Uploadable {
       $type = 'image';
     }
 
+    if(VERBOSE) printf("%s image\n", $type);
+
     $this->caption    = $this->getCaption($data[$type]['caption']);
-    $this->notion_url = $data[$type]['file']['url'];
-    $this->url = $this->notion_url;
+    $this->notion_url = $data[$type][$data[$type]['type']]['url'];
+    $this->url        = $this->notion_url;
+    $this->type       = $type;
 
     $this->s3 = new S3Client([
       'version' => 'latest',
