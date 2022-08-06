@@ -20,6 +20,8 @@ class Notion {
     'embed'       => '\b3co\notion\block\Embed',
     'toggle'      => '\b3co\notion\block\Toggle',
     'code'        => '\b3co\notion\block\Code',
+    'table'       => '\b3co\notion\block\Table',
+    'table_row'   => '\b3co\notion\block\TableRow',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];
