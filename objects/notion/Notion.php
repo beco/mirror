@@ -22,6 +22,7 @@ class Notion {
     'code'        => '\b3co\notion\block\Code',
     'table'       => '\b3co\notion\block\Table',
     'table_row'   => '\b3co\notion\block\TableRow',
+    'bookmark'    => '\b3co\notion\block\Bookmark',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];
