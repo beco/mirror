@@ -34,7 +34,7 @@ class Columns extends Block implements BlockInterface {
   public function toHtml($container = 'div') {
     $ret = "<table style='width: 100%; border:0px'><tr>\n";
     foreach($this->children as $block) {
-      $ret .= sprintf("<td width='%d%%' style='border: 0px'>%s</td>\n", 100/count($this->children), $block->toHtml('none'));
+      $ret .= sprintf("<td width='%d%%' style='border: 0px; vertical-align: top; padding: 0px; padding-right: 5px; margin: 0px;'>%s</td>\n", 100/count($this->children), $block->toHtml('none'));
     }
     $ret .= "</tr></table>";
     return $ret;
