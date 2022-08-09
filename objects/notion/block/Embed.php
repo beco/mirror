@@ -20,6 +20,6 @@ class Embed extends Block implements BlockInterface {
   }
 
   public function toHtml($container = 'div') {
-    return sprintf("<iframe src='%s' style='width:100%%'></iframe>", $this->url);
+    return sprintf("<iframe src='%s' style='width:100%%' height='300px'></iframe>", $this->url);
   }
 }
