@@ -16,6 +16,10 @@ class RichText {
     $this->mark_down   = $this->getMarkDown();
   }
 
+  public function isEmpty() {
+    return $this->getPlainText() === '';
+  }
+
   public function getPlainText() {
     $ret = '';
     foreach($this->text_object as $o) {
