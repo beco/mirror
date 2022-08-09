@@ -25,8 +25,6 @@ class Image extends Block implements BlockInterface, Uploadable {
       $type = 'image';
     }
 
-    if(VERBOSE) printf("%s image\n", $type);
-
     $this->caption    = $this->getCaption($data[$type]['caption']);
     $this->notion_url = $data[$type][$data[$type]['type']]['url'];
     $this->url        = $this->notion_url;
@@ -109,11 +107,15 @@ class Image extends Block implements BlockInterface, Uploadable {
   }
 
   public function toHtml($container = 'div') {
-    $ret = sprintf("<figure><img src='%s'>", $this->url);
-    if($this->caption != '') {
-      $ret .= sprintf("<figcaption>👆 %s</figcaption>", $this->caption);
+    $ret = sprintf("<figure><a href='%s' target='_blank'><img src='%s'>",
+      $this->url,
+      $this->url
+    );
+    //var_dump($this->caption);
+    if(!$this->caption->isEmpty()) {
+      $ret .= sprintf("<figcaption style='font-size: 90%%;background-color: #ccc; border-radius: 3px;'>👆 %s</figcaption>", $this->caption->getHtml());
     }
-    $ret .= "</figure>";
+    $ret .= "</a></figure>\n";
     return sprintf(Block::$html_containers[$container], $ret);
   }
 
@@ -130,9 +132,10 @@ class Image extends Block implements BlockInterface, Uploadable {
   }
 
   private function getCaption($data) {
-    if(isset($data[0]['text']['content'])) {
-      return $data[0]['text']['content'];
+    if(isset($data)) {
+      $ret = new RichText($data);
+      return $ret;
     }
-    return '';
+    return null;
   }
 }
