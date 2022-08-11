@@ -107,15 +107,15 @@ class Image extends Block implements BlockInterface, Uploadable {
   }
 
   public function toHtml($container = 'div') {
-    $ret = sprintf("<figure><a href='%s' target='_blank'><img src='%s'>",
+    $ret = sprintf("<figure><a href='%s' target='_blank'><img src='%s'></a>",
       $this->url,
       $this->url
     );
     //var_dump($this->caption);
     if(!$this->caption->isEmpty()) {
-      $ret .= sprintf("<figcaption style='font-size: 90%%;background-color: #ccc; border-radius: 3px;'>👆 %s</figcaption>", $this->caption->getHtml());
+      $ret .= sprintf("<figcaption style='font-size: 90%%;background-color: #eee; border-radius: 3px;'>👆 %s</figcaption>", $this->caption->getHtml());
     }
-    $ret .= "</a></figure>\n";
+    $ret .= "</figure>\n";
     return sprintf(Block::$html_containers[$container], $ret);
   }
 
