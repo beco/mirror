@@ -1,6 +1,10 @@
 {
-    "require": {
-        "guzzlehttp/guzzle": "^7.4",
-        "aws/aws-sdk-php": "^3.231"
-    }
+  "name":"b3co/notion-mirror",
+  "description": "a notion mirror",
+  "require": {
+    "php": ">7.3",
+    "guzzlehttp/guzzle": "^7.4",
+    "aws/aws-sdk-php": "^3.231"
+  },
+  "license": "MIT"
 }
