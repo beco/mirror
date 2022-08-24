@@ -12,5 +12,10 @@
     "guzzlehttp/guzzle": "^7.4",
     "aws/aws-sdk-php": "^3.231"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+        "b3co\\notion\\": "src/notion/"
+    }
+  }
 }

@@ -38,17 +38,17 @@ When invoking a `$page->toTemplate($template)` this happens:
 - [x] To do blocks
 - [x] Column List and Column Blocks
 - [x] Quote blocks
-- [ ] Bulleted list item blocks
+- [x] Bulleted list item blocks
 - [ ] Numbered list item blocks
-- [ ] Code blocks
+- [x] Code blocks
 - [ ] Video blocks
 - [ ] Toggle blocks
 - [x] Divider blocks
-- [ ] Embed blocks
+- [x] Embed blocks
+- [x] Child page blocks
 
 ### Out of Scope
 - [ ] Callout blocks
-- [ ] Child page blocks
 - [ ] Child database blocks
 - [ ] File blocks
 - [ ] PDF blocks
