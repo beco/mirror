@@ -45,11 +45,20 @@ class Notion {
   private $token = '';
   private $client;
   public $config;
+  public $s3_ready;
 
   public function __construct($config = []) {
     $this->config = $config;
     $this->token  = $config['notion_token'] or die("no notion token");
     $this->client = new Client();
+    $this->s3_ready = $this->isS3Ready();
+  }
+
+  private function isS3Ready() {
+    return isset($this->config['aws_key']) && $this->config['aws_key'] != '' &&
+      isset($this->config['aws_secret']) && $this->config['aws_secret'] != '' &&
+      isset($this->config['aws_region']) && $this->config['aws_region'] != '' &&
+      isset($this->config['bucket_name']) && $this->config['bucket_name'] != '';
   }
 
   public function getPage($id, $save = false) {
