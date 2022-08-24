@@ -1,6 +1,12 @@
 {
   "name":"b3co/notion-mirror",
   "description": "a notion mirror",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/beco/mirror"
+    }
+  ],
   "require": {
     "php": ">7.3",
     "guzzlehttp/guzzle": "^7.4",
