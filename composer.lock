@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bda8e90fcf3c7459614f24456e2b2e9",
+    "content-hash": "d739d09d4631f70b60d358e812bb5c6a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.231.7",
+            "version": "3.234.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "25f7cf72a1d7cf3075436cfbfdc4caed201df3ec"
+                "reference": "0057dc79b832f456ed5eb20369a51f894b99a968"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/25f7cf72a1d7cf3075436cfbfdc4caed201df3ec",
-                "reference": "25f7cf72a1d7cf3075436cfbfdc4caed201df3ec",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0057dc79b832f456ed5eb20369a51f894b99a968",
+                "reference": "0057dc79b832f456ed5eb20369a51f894b99a968",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.234.1"
             },
-            "time": "2022-07-15T18:16:42+00:00"
+            "time": "2022-08-23T18:19:55+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -893,7 +893,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">7.3"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
 }
