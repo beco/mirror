@@ -3,33 +3,38 @@ Notion Mirror
 
 A php way to read Notion pages and upload resources to an s3 bucket.
 
+First package to composer, bare with me on this one.
+
 # Operation
 
-## 1. prepare notion
-1. create an integration [here](https://www.notion.so/my-integrations)
-2. at this time only _read_ access is necesary
-3. grab the `notion_token` and add it as an environment variable `export notion_token=CCCCCCCC`
+## prepare services
+1. Notion: create a Notion integration [here](https://www.notion.so/my-integrations)
+  a. at this time only _read_ access is necesary
+  b. grab the `notion_token`
+1. AWS: create an s3 bucket, grab `aws_key`, `aws_secret`, `bucket_name`
+1. create a `$config` array and pass it when creating a `b3co/notion/Notion` object, like this example:
 
-## 2. check for local variables needed
-
-These `env` vars are mandatory:
-- `notion_token`
-- `env`
-
-### Optional
-- `aws_key` - that.
-- `aws_secret` - that.
-- `s3_bucket` - also, that.
+```
+$config = [
+  'notion_token' => 'NOTION_TOKEN',
+  'aws_key'      => 'AWS_KEY',
+  'aws_secret'   => 'AWS_SECRET',
+  'bucket_name'  => 'BUCKET_NAME',
+];
+$notion = new \b3co\notion\Notion($config);
+$page   = $notion->getPage(PAGE_ID);
+echo $page->toHtml();
+```
 
 # Templates
 
-When invoking a `$page->toTemplate($template)` this happens:
-1. checks if `__DIR__/templates/$template/$block` file_exists
+When invoking a `$page->toTemplate(TEMPLATE)` this happens:
+1. checks if `__DIR__/templates/TEMPLATE/$block` file_exists
 2. if it does checks for any `[:KEY]` to replaces it with `$block->$key`
 
-## Supported 📦 Objects
+# Supported 📦 Objects
 
-### Planned
+## Planned
 - [x] Paragraph blocks
 - [x] Heading one blocks
 - [x] Heading two blocks
@@ -46,6 +51,8 @@ When invoking a `$page->toTemplate($template)` this happens:
 - [x] Divider blocks
 - [x] Embed blocks
 - [x] Child page blocks
+- [x] Table blocks
+- [x] Table row blocks
 
 ### Out of Scope
 - [ ] Callout blocks
@@ -60,5 +67,3 @@ When invoking a `$page->toTemplate($template)` this happens:
 - [ ] Template blocks
 - [ ] Link to page blocks
 - [ ] Synced Block blocks
-- [ ] Table blocks
-- [ ] Table row blocks
