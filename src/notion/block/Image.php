@@ -32,7 +32,7 @@ class Image extends Block implements BlockInterface, Uploadable {
 
     $this->s3 = new S3Client([
       'version' => 'latest',
-      'region'  => 'us-east-2',
+      'region'  => $this->parent_page->notion->config['aws_region'],
       'credentials' => [
         'key'    => $this->parent_page->notion->config['aws_key'],
         'secret' => $this->parent_page->notion->config['aws_secret'],
