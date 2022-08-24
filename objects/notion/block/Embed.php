@@ -6,7 +6,7 @@ class Embed extends Block implements BlockInterface {
 
   public $url;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
     $this->url = $data['embed']['url'];
   }

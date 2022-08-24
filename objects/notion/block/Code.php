@@ -7,7 +7,7 @@ class Code extends Block implements BlockInterface {
   public $text_object;
   public $lines = 0;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
     $this->text_object = new RichText($data['code']['rich_text']);
     $this->lines = count(explode("\n", $this->text_object->getPlainText()));

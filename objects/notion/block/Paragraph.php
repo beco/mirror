@@ -8,8 +8,8 @@ class Paragraph extends Block implements BlockInterface {
   public  $text;
   private $text_object;
 
-  public function __construct($data, $parent, $upload = false) {
-    parent::__construct($data, $parent, $upload);
+  public function __construct($data, $parent) {
+    parent::__construct($data, $parent);
     $this->text_object = new RichText($data['paragraph']['rich_text']);
   }
 

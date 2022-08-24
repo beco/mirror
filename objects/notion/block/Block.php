@@ -14,6 +14,9 @@ class Block {
   public $notion;
   public $upload;
 
+  public $created_at;
+  public $updated_at;
+
   private $raw;
 
   protected static $html_containers = [
@@ -21,16 +24,20 @@ class Block {
     'none' => '%s',
   ];
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent, $follow = true) {
     $this->id           = $data['id'];
     $this->type         = $data['type'];
     $this->has_children = $data['has_children'];
     $this->raw          = $data;
     $this->parent_page  = $parent;
-    $this->upload       = $upload;
+    $this->upload       = $parent->upload;
 
-    if($this->has_children == true) {
-      $this->children = $this->parent_page->notion->getChildren($this->id, $parent, $this->upload);
+    $this->created_at = $data['created_time'];
+    $this->updated_at = $data['last_edited_time'];
+
+    if($this->has_children == true && $follow) {
+      $this->children = $this->parent_page->notion
+        ->getChildren($this->id, $parent);
     }
 
     if($data['parent']['type'] == 'page_id') {

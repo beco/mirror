@@ -4,7 +4,7 @@ namespace b3co\notion\block;
 
 class Divider extends Block implements BlockInterface {
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
   }
 

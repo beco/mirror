@@ -15,8 +15,8 @@ class Image extends Block implements BlockInterface, Uploadable {
   private $notion_url;
   private $s3;
 
-  public function __construct($data, $parent, $upload = false) {
-    parent::__construct($data, $parent, $upload);
+  public function __construct($data, $parent) {
+    parent::__construct($data, $parent);
 
     $type = '';
     if($data['object'] == 'page') {
@@ -126,7 +126,7 @@ class Image extends Block implements BlockInterface, Uploadable {
   public function toMarkDown() {
     $ret = sprintf("![inline](%s)", $this->url);
     if($this->caption != '') {
-      $ret .= sprintf("\n> %s\n", $this->caption);
+      $ret .= sprintf("\n> %s\n", $this->caption->getMarkDown());
     }
     return $ret;
   }

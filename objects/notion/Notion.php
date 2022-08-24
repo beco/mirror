@@ -23,6 +23,7 @@ class Notion {
     'table'       => '\b3co\notion\block\Table',
     'table_row'   => '\b3co\notion\block\TableRow',
     'bookmark'    => '\b3co\notion\block\Bookmark',
+    'child_page'  => '\b3co\notion\block\ChildPage',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];
@@ -52,7 +53,7 @@ class Notion {
   }
 
   public function getPage($id, $save = false) {
-    return new Page($id, $save, $this);
+    return new Page($id, $this, $save);
   }
 
   public function getNodesFrom($id) {
@@ -125,12 +126,12 @@ class Notion {
     return sprintf("%s?%s", $url, join("&", $ps));
   }
 
-  public function getChildren($id, $page, $upload = false) {
+  public function getChildren($id, $page) {
     $blocks = $this->getNodesFrom($id);
     $children = [];
     foreach($blocks as $block) {
       if(Notion::$classes[$block['type']]) {
-        $children[] = new Notion::$classes[$block['type']]($block, $page, $upload);
+        $children[] = new Notion::$classes[$block['type']]($block, $page);
         if(VERBOSE) printf("✅ initializing %s\n", $block['type']);
       } else {
         if(VERBOSE) printf("🔴 no class for %s\n", $block['type']);

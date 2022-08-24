@@ -6,7 +6,7 @@ class TableCell extends Block implements BlockInterface {
 
   public $content;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
     $this->content = new RichText($data);
   }

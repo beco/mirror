@@ -7,7 +7,7 @@ class Bookmark extends Block implements BlockInterface {
   private $url;
   private $caption;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
     $this->url     = $data[$this->type]['url'];
     $this->caption = new RichText($data[$this->type]['caption']);

@@ -8,8 +8,8 @@ class Toggle extends Block implements BlockInterface {
   public $title;
   public $children_body;
 
-  public function __construct($data, $parent, $upload = false) {
-    parent::__construct($data, $parent, $upload);
+  public function __construct($data, $parent) {
+    parent::__construct($data, $parent);
     $this->text_object = new RichText($data['toggle']['rich_text']);
     $this->title = $this->text_object->getHtml();
   }

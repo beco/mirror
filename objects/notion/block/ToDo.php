@@ -8,8 +8,8 @@ class ToDo extends Block implements BlockInterface {
 
   private $text_object;
 
-  public function __construct($data, $parent, $upload = false) {
-    parent::__construct($data, $parent, $upload);
+  public function __construct($data, $parent) {
+    parent::__construct($data, $parent);
     $this->text_object = new RichText($data['to_do']['rich_text']);
     $this->checked = $data['to_do']['checked'] == 1;
   }

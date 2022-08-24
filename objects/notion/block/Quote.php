@@ -6,8 +6,8 @@ class Quote extends Block implements BlockInterface {
 
   public $text_object;
 
-  public function __construct($data, $parent, $upload = false) {
-    parent::__construct($data, $parent, $upload);
+  public function __construct($data, $parent) {
+    parent::__construct($data, $parent);
     $this->text_object = new RichText($data['quote']['rich_text']);
   }
 

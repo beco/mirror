@@ -21,24 +21,26 @@ class Page extends Block {
   private $blocks;
   private $title_object;
 
-  public function __construct($id, $upload = false, $notion) {
+  public function __construct($id, $notion, $upload = false) {
     $this->notion = $notion;
-    $data = json_decode($this->notion->retrieve('get_page', ['page_id' => $id]), true);
+    $url  = $this->notion->retrieve('get_page', ['page_id' => $id]);
+    $data = json_decode($url, true);
 
-    $this->raw   = $data;
-    $this->id    = $data['id'];
-    $this->type  = 'page';
+    $this->raw    = $data;
+    $this->id     = $data['id'];
+    $this->type   = 'page';
+    $this->upload = $upload;
 
     $this->icon  = $data['icon']['emoji'];
 
     if($data['cover']) {
-      $this->cover = new Image($data, $this, $upload);
+      $this->cover = new Image($data, $this);
     }
 
     $this->title_object = new RichText($data['properties']['title']['title']);
     $this->title = $this->title_object->getPlainText();
 
-    $this->children = $notion->getChildren($this->id, $this, $upload);
+    $this->children = $notion->getChildren($this->id, $this);
   }
 
   public function toString() {

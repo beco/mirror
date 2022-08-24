@@ -8,7 +8,7 @@ class Table extends Block implements BlockInterface {
   public $has_column_header;
   public $has_row_header;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
     $this->width = $data[$this->type]['table_width'];
 

@@ -6,7 +6,7 @@ class NumberListItem extends Block implements BlockInterface {
 
   public $text_object;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
     $this->text_object = new RichText($data['numbered_list_item']['rich_text']);
   }

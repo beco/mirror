@@ -7,11 +7,11 @@ class TableRow extends Block implements BlockInterface {
   public $cells = [];
   public $is_header = false;
 
-  public function __construct($data, $parent, $upload = false) {
+  public function __construct($data, $parent) {
     parent::__construct($data, $parent);
 
     foreach($data['table_row']['cells'] as $c) {
-      $this->cells[] = new TableCell($c, $parent, $upload);
+      $this->cells[] = new TableCell($c, $parent);
     }
   }
 
