@@ -55,8 +55,12 @@ class Block {
   }
 
   public function hasTemplate($template):bool {
-    if(VERBOSE) printf("> %s\n", $this->getTemplateFileName($template));
-    return file_exists($this->getTemplateFileName($template));
+    $exists = file_exists($this->getTemplateFileName($template));
+    if(VERBOSE) printf("> %s %s\n",
+      $this->getTemplateFileName($template),
+      $exists?"✅":"❌"
+    );
+    return $exists;
   }
 
   public function getTemplateFileName($template):string {

@@ -9,12 +9,12 @@ First package to composer, bare with me on this one.
 
 ## prepare services
 1. Notion: create a Notion integration [here](https://www.notion.so/my-integrations)
-  a. at this time only _read_ access is necesary
-  b. grab the `notion_token`
+  1. at this time only _read_ access is necesary
+  1. grab the `notion_token`
 1. AWS: create an s3 bucket, grab `aws_key`, `aws_secret`, `bucket_name`
 1. create a `$config` array and pass it when creating a `b3co/notion/Notion` object, like this example:
 
-```
+```php
 $config = [
   'notion_token' => 'NOTION_TOKEN',
   'aws_key'      => 'AWS_KEY',
