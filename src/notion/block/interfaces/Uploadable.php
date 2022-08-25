@@ -1,6 +1,6 @@
 <?php
 
-namespace b3co\notion\block;
+namespace b3co\notion\block\interfaces;
 
 interface Uploadable {
   public function isUploaded():bool;

@@ -2,6 +2,8 @@
 
 namespace b3co\notion\block;
 
+use b3co\notion\block\interfaces\BlockInterface;
+
 class TableRow extends Block implements BlockInterface {
 
   public $cells = [];

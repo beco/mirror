@@ -2,6 +2,8 @@
 
 namespace b3co\notion\block;
 
+use b3co\notion\block\interfaces\BlockInterface;
+
 class Divider extends Block implements BlockInterface {
 
   public function __construct($data, $parent) {

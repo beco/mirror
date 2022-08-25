@@ -2,6 +2,8 @@
 
 namespace b3co\notion\block;
 
+use b3co\notion\block\interfaces\BlockInterface;
+
 class H2 extends Block implements BlockInterface {
 
   public $text_object;

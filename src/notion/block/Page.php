@@ -6,6 +6,8 @@ use b3co\notion\block\RichText;
 use b3co\notion\block\Block;
 use b3co\notion\Notion;
 
+use b3co\notion\block\interfaces\BlockInterface;
+
 class Page extends Block {
   public $id;
   public $title = '';

@@ -2,6 +2,8 @@
 
 namespace b3co\notion\block;
 
+use b3co\notion\block\interfaces\BlockInterface;
+
 class Paragraph extends Block implements BlockInterface {
 
   public  $plain_text;

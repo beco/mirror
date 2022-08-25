@@ -6,6 +6,9 @@ use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\Exception\S3Exception;
 
+use b3co\notion\block\interfaces\BlockInterface;
+use b3co\notion\block\interfaces\Uploadable;
+
 class Image extends Block implements BlockInterface, Uploadable {
 
   public $caption;

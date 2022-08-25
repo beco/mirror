@@ -2,6 +2,8 @@
 
 namespace b3co\notion\block;
 
+use b3co\notion\block\interfaces\BlockInterface;
+
 class Code extends Block implements BlockInterface {
 
   public $text_object;
@@ -11,7 +13,6 @@ class Code extends Block implements BlockInterface {
     parent::__construct($data, $parent);
     $this->text_object = new RichText($data['code']['rich_text']);
     $this->lines = count(explode("\n", $this->text_object->getPlainText()));
-    printf("lines: %d\n", $this->lines);
   }
 
   public function toString() {

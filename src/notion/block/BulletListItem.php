@@ -1,6 +1,7 @@
 <?php
 
 namespace b3co\notion\block;
+use b3co\notion\block\interfaces\BlockInterface;
 
 class BulletListItem extends Block implements BlockInterface {
 
