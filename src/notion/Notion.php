@@ -138,9 +138,25 @@ class Notion {
   public function getChildren($id, $page) {
     $blocks = $this->getNodesFrom($id);
     $children = [];
+
+    $i = 0;
+
     foreach($blocks as $block) {
-      if(Notion::$classes[$block['type']]) {
-        $children[] = new Notion::$classes[$block['type']]($block, $page);
+      $type = $block['type'];
+      if(Notion::$classes[$type]) {
+        $children[$i] = new Notion::$classes[$type]($block, $page);
+
+        if(isset($children[$i-1])) {
+          if($children[$i-1]->type != $type){
+            $children[$i]->is_first  = true;
+            $children[$i-1]->is_last = true;
+          } else {
+            $children[$i]->is_first  = false;
+            $children[$i-1]->is_last = false;
+          }
+        }
+
+        $i++;
         if(VERBOSE) printf("✅ initializing %s\n", $block['type']);
       } else {
         if(VERBOSE) printf("🔴 no class for %s\n", $block['type']);

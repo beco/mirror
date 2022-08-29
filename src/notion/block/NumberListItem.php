@@ -22,6 +22,10 @@ class NumberListItem extends Block implements BlockInterface {
   }
 
   public function toHtml($container = 'div') {
-    return sprintf("<li>%s</li>", $this->text_object->getHtml());
+    return sprintf("%s  <li>%s</li>%s",
+      $this->is_first?"<ol>\n":"",
+      $this->text_object->getHtml(),
+      $this->is_last?"\n</ol>":"",
+    );
   }
 }

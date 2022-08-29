@@ -17,6 +17,9 @@ class Block {
   public $created_at;
   public $updated_at;
 
+  public $is_first = true;
+  public $is_last  = true;
+
   private $raw;
 
   protected static $html_containers = [
