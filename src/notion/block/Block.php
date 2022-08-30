@@ -35,8 +35,8 @@ class Block {
     $this->parent_page  = $parent;
     $this->upload       = $parent->upload;
 
-    $this->created_at = $data['created_time'];
-    $this->updated_at = $data['last_edited_time'];
+    $this->created_at   = $data['created_time'];
+    $this->updated_at   = $data['last_edited_time'];
 
     if($this->has_children == true && $follow) {
       $this->children = $this->parent_page->notion
@@ -48,6 +48,15 @@ class Block {
     }
   }
 
+  public function getChildrenByType($type) {
+    $ret = [];
+    foreach($this->children as $child) {
+      if($child->type == $type) {
+        $ret[] = $child;
+      }
+    }
+    return $ret;
+  }
 
   public function getRaw() {
     return $this->raw;

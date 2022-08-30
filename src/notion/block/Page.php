@@ -17,7 +17,6 @@ class Page extends Block {
   public $cover = null;
 
   public $children = [];
-  public $notion;
 
   private $raw  = '';
   private $blocks;
@@ -33,7 +32,7 @@ class Page extends Block {
     $this->type   = 'page';
     $this->upload = $upload;
 
-    $this->icon  = $data['icon']['emoji'];
+    $this->icon   = $data['icon']['emoji'];
 
     if($data['cover']) {
       $this->cover = new Image($data, $this);
@@ -43,6 +42,10 @@ class Page extends Block {
     $this->title = $this->title_object->getPlainText();
 
     $this->children = $notion->getChildren($this->id, $this);
+  }
+
+  public function getChildrenPages() {
+    return $this->getChildrenByType('child_page');
   }
 
   public function toString() {
@@ -64,7 +67,6 @@ class Page extends Block {
   }
 
   public function toHtml() {
-
     $this->children_body = $this->getChildrenBody();
     if($this->hasTemplate('html')) {
       return $this->renderTemplate('html');
