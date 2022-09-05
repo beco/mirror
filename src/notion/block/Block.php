@@ -131,4 +131,12 @@ class Block {
     }
     return $ret;
   }
+
+  protected function getCaption($data) {
+    if(isset($data)) {
+      $ret = new RichText($data);
+      return $ret;
+    }
+    return null;
+  }
 }

@@ -8,7 +8,6 @@ use b3co\notion\block\interfaces\Uploadable;
 class Image extends UploadableBlock implements BlockInterface {
 
   public $caption;
-  public $format;
 
   public function __construct($data, $parent) {
     parent::__construct($data, $parent);
@@ -50,13 +49,5 @@ class Image extends UploadableBlock implements BlockInterface {
       $ret .= sprintf("\n> %s\n", $this->caption->getMarkDown());
     }
     return $ret;
-  }
-
-  private function getCaption($data) {
-    if(isset($data)) {
-      $ret = new RichText($data);
-      return $ret;
-    }
-    return null;
   }
 }

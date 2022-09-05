@@ -17,6 +17,7 @@ class UploadableBlock extends Block {
     'jpg'  => 'image/jpeg',
     'mp4'  => 'video/mp4',
     'jpeg' => 'image/jpeg',
+    'pdf'  => 'application/pdf',
   ];
 
   public function __construct($data, $parent) {
@@ -43,7 +44,7 @@ class UploadableBlock extends Block {
 
   }
 
-  protected function upload() {
+  protected function upload():null {
     if($this->upload) {
       $this->uploadToS3();
       $this->url = $this->getS3Url();
