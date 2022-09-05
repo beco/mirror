@@ -66,7 +66,6 @@ class Video extends UploadableBlock implements BlockInterface {
   }
 
   public function isFile():bool {
-    print_r($this->raw);
     return $this->raw['video']['type'] == 'file';
   }
 }

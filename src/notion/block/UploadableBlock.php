@@ -22,8 +22,6 @@ class UploadableBlock extends Block {
   public function __construct($data, $parent) {
     parent::__construct($data, $parent);
 
-    //print_r($data);
-
     $type = $data['type'];
 
     $this->notion_url = $data[$type][$data[$type]['type']]['url'];
