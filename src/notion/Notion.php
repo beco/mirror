@@ -24,6 +24,7 @@ class Notion {
     'table_row'   => '\b3co\notion\block\TableRow',
     'bookmark'    => '\b3co\notion\block\Bookmark',
     'child_page'  => '\b3co\notion\block\ChildPage',
+    'video'       => '\b3co\notion\block\Video',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
   ];

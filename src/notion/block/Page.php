@@ -18,7 +18,6 @@ class Page extends Block {
 
   public $children = [];
 
-  private $raw  = '';
   private $blocks;
   private $title_object;
 
@@ -27,7 +26,6 @@ class Page extends Block {
     $url  = $this->notion->retrieve('get_page', ['page_id' => $id]);
     $data = json_decode($url, true);
 
-    $this->raw    = $data;
     $this->id     = $data['id'];
     $this->type   = 'page';
     $this->upload = $upload;

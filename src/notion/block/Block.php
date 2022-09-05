@@ -20,7 +20,7 @@ class Block {
   public $is_first = true;
   public $is_last  = true;
 
-  private $raw;
+  protected $raw;
 
   protected static $html_containers = [
     'div'  => '<div class="element">%s</div>',
