@@ -13,18 +13,35 @@ class BulletListItem extends Block implements BlockInterface {
   }
 
   public function toString() {
-    return sprintf("* %s\n", $this->text_object->getPlainText());
+    $ret = sprintf("* %s", $this->text_object->getPlainText());
+    foreach($this->children as $child) {
+      $ret .= sprintf("\n  %s", $child->toString());
+    }
+    return $ret;
   }
 
   public function toMarkDown() {
-    return sprintf("* %s", $this->text_object->getMarkDown());
+    $ret = sprintf("* %s", $this->text_object->getMarkDown());
+    foreach($this->children as $child) {
+      $ret .= sprintf("\n  %s", $child->toMarkDown());
+    }
+    return $ret;
   }
 
   public function toHtml($container = 'div') {
-    return sprintf("%s  <li>%s</li>%s",
-      $this->is_first?"<ul>\n":"",
+    return sprintf("%s\n  <li>%s%s</li>%s\n",
+      $this->is_first?"\n<ul>\n":"",
       $this->text_object->getHtml(),
-      $this->is_last?"\n</ul>":"",
+      $this->getChildrenHtml(),
+      $this->is_last?"\n</ul>\n":"",
     );
+  }
+
+  private function getChildrenHtml() {
+    $ret = '';
+    foreach($this->children as $child) {
+      $ret .= $child->toHtml();
+    }
+    return $ret;
   }
 }
