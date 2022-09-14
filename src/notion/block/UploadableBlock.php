@@ -23,7 +23,7 @@ class UploadableBlock extends Block {
   public function __construct($data, $parent) {
     parent::__construct($data, $parent);
 
-    $type = $data['type'];
+    $type = $data['object'] == 'page'?'cover':$data['type'];
 
     $this->notion_url = $data[$type][$data[$type]['type']]['url'];
 
@@ -31,6 +31,8 @@ class UploadableBlock extends Block {
     if(preg_match('/^http.*\/.*?\.(\w+)\?.*$/', $this->notion_url, $m)) {
       $this->extension = $m[1];
       printf("type: %s\n", $this->extension);
+    } else {
+      printf("NO EXTENSION\n%s\n", $this->notion_url);
     }
 
     $this->s3 = new S3Client([
@@ -44,7 +46,7 @@ class UploadableBlock extends Block {
 
   }
 
-  protected function upload():null {
+  protected function upload():void {
     if($this->upload) {
       $this->uploadToS3();
       $this->url = $this->getS3Url();
