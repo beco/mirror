@@ -139,8 +139,8 @@ HTML templating can be overwritten by creating a template family called html, if
 - [x] Code blocks
 - [x] Toggle blocks
 - [x] Divider blocks
-- [ ] Video blocks
-- [ ] Numbered list item blocks (tricky, work in progress)
+- [x] Video blocks
+- [x] Numbered list item blocks (tricky, work in progress)
 - [x] Embed blocks
 - [ ] Equation blocks
 - [x] Table row blocks
