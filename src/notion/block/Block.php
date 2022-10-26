@@ -66,32 +66,33 @@ class Block {
     return $this->type == 'page';
   }
 
-  public function hasTemplate($template):bool {
-    $exists = file_exists($this->getTemplateFileName($template));
-    if(VERBOSE) printf("> %s %s\n",
-      $this->getTemplateFileName($template),
+  public function hasTemplate($template, $file = null):bool {
+    $exists = file_exists($this->getTemplateFileName($template, $file));
+    if(VERBOSE) printf("> %s %s %s\n",
+      $this->getTemplateFileName($template, $file),
+      $file,
       $exists?"✅":"❌"
     );
     return $exists;
   }
 
-  public function getTemplateFileName($template):string {
+  public function getTemplateFileName($template, $file = null):string {
     return sprintf("templates/%s/%s.template",
       $template,
-      $this->type
+      $file === null?$this->type:$file
     );
   }
 
-  public function getTemplate($template) {
-    $file = $this->getTemplateFileName($template);
+  public function getTemplate($template, $file = null) {
+    $file = $this->getTemplateFileName($template, $file);
     if(file_exists($file)) {
       return file_get_contents($file);
     }
     return '';
   }
 
-  public function renderTemplate($template):string {
-    $tmp  = $this->getTemplate($template);
+  public function renderTemplate($template, $file = null):string {
+    $tmp  = $this->getTemplate($template, $file);
     $vars = [];
     if(preg_match_all('/\[:([a-z0_9\_]+)\]/', $tmp, $m)) {
       foreach($m[1] as $key) {
@@ -108,24 +109,24 @@ class Block {
     return '';
   }
 
-  public function toTemplate($template) {
-    if($this->getTemplate($template) !== '') {
-      return $this->renderTemplate($template);
+  public function toTemplate($template, $file = null) {
+    if($this->getTemplate($template, $file) !== '') {
+      return $this->renderTemplate($template, $file);
     }
     if(VERBOSE) printf("No template for %s\n", $this->type);
     return $this->toHtml();
   }
 
-  public function getChildrenBody($template = 'html') {
+  public function getChildrenBody($template = 'html', $file = null) {
     if(count($this->children) == 0) {
       return '';
     }
     $ret = '';
     foreach($this->children as $block) {
-      if($template === 'html') {
+      if($template === 'html' && $file === null) {
         $ret .= $block->toHtml();
       } else {
-        $ret .= $block->renderTemplate($template);
+        $ret .= $block->renderTemplate($template, $file);
       }
       $ret .= "\n";
     }

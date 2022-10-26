@@ -88,7 +88,7 @@ class Page extends Block {
     return $this->raw;
   }
 
-  public function toTemplate($template) {
+  public function toTemplate($template, $file = null) {
     $this->body = $this->getTemplateBody($template);
     //echo $this->body;
     return $this->renderTemplate($template);
