@@ -18,6 +18,9 @@ class Page extends Block {
 
   public $children = [];
 
+  public $toc;
+  public $has_toc = false;
+
   private $blocks;
   private $title_object;
 
@@ -77,11 +80,19 @@ class Page extends Block {
         $this->cover->url);
     }
 
+    if($this->has_toc) {
+      $ret .= $this->toc->toHtml();
+    }
+
     foreach($this->children as $b) {
       $ret .= sprintf("%s\n", $b->toHtml());
     }
 
     return $ret;
+  }
+
+  public function addHeading($block) {
+    $this->toc->elements[] = $block;
   }
 
   public function getRaw() {

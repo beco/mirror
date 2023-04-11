@@ -11,6 +11,8 @@ class Heading extends Block implements BlockInterface {
 
   public function __construct($data, $parent) {
     parent::__construct($data, $parent);
+    if($this->parent_page->has_toc)
+      $this->parent_page->toc->addHeading($this);
   }
 
   public function toString() {
@@ -40,5 +42,10 @@ class Heading extends Block implements BlockInterface {
       $ret .= sprintf("%s\n", $this->children_body);
     }
     return $ret;
+  }
+
+  public function toTocElement() {
+    return sprintf("<li><a href='#a_%s'>%s</a></li>\n",
+      $this->id, $this->text_object->getHtml());
   }
 }
