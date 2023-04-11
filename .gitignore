@@ -59,4 +59,4 @@ package-lock.json
 /models/Test*
 /web/uploads
 /*.php
-/app
+/app/config.php
