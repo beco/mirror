@@ -68,11 +68,14 @@ class Block {
 
   public function hasTemplate($template, $file = null):bool {
     $exists = file_exists($this->getTemplateFileName($template, $file));
-    if(VERBOSE) printf("> %s %s %s\n",
-      $this->getTemplateFileName($template, $file),
-      $file,
-      $exists?"✅":"❌"
-    );
+    if(VERBOSE)
+      fwrite(STDERR,
+        sprintf("> %s %s %s\n",
+          $this->getTemplateFileName($template, $file),
+          $file,
+          $exists?"✅":"❌"
+        )
+      );
     return $exists;
   }
 
@@ -128,7 +131,6 @@ class Block {
       } else {
         $ret .= $block->renderTemplate($template, $file);
       }
-      $ret .= "\n";
     }
     return $ret;
   }

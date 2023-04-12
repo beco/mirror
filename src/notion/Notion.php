@@ -160,9 +160,9 @@ class Notion {
         }
 
         $i++;
-        if(VERBOSE) printf("✅ initializing %s\n", $block['type']);
+        if(VERBOSE) fwrite(STDERR, sprintf("✅ initializing %s\n", $block['type']));
       } else {
-        if(VERBOSE) printf("🔴 no class for %s\n", $block['type']);
+        if(VERBOSE) fwrite(STDERR, sprintf("🔴 no class for %s\n", $block['type']));
       }
     }
     return $children;

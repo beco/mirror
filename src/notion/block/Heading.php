@@ -32,7 +32,7 @@ class Heading extends Block implements BlockInterface {
     if($this->hasTemplate('html')) {
       return $this->renderTemplate('html');
     }
-    $ret = sprintf("<a name='a_%s'>\n<h%s>%s</h%s>\n",
+    $ret = sprintf("\n<a name='a_%s'></a>\n<h%s>%s</h%s>\n\n",
       $this->id,
       $this->level,
       $this->text_object->getHtml(),

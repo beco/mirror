@@ -1,6 +1,6 @@
 <figure>
   <a href='[:url]' target='_blank'>
-  <img src='[:url]'></a>
+  <img src='[:url]' alt='[:simple_caption]'></a>
   <figcaption style='font-size: 90%;background-color: #eee; border-radius: 3px;'>
     👆 [:simple_caption]
   </figcaption>

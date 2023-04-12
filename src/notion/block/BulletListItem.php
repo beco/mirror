@@ -29,11 +29,11 @@ class BulletListItem extends Block implements BlockInterface {
   }
 
   public function toHtml($container = 'div') {
-    return sprintf("%s\n  <li>%s%s</li>%s\n",
-      $this->is_first?"\n<ul>\n":"",
+    return sprintf("%s  <li>%s%s</li>%s\n",
+      $this->is_first?"<ul>\n":"",
       $this->text_object->getHtml(),
       $this->getChildrenHtml(),
-      $this->is_last?"\n</ul>\n":"",
+      $this->is_last?"\n</ul>":"",
     );
   }
 
