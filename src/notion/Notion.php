@@ -68,6 +68,43 @@ class Notion {
     return new Page($id, $this, $save);
   }
 
+  public function getStats($id) {
+    $p = $this->getPage($id);
+    $r = [];
+    $b = ['paragraph', 'image', 'heading_1', 'heading_2', 'heading_3', 'title'];
+    foreach($p->children as $block) {
+      if(in_array($block->type, $b)) {
+        if($block->type == 'image') {
+          $t = $block->simple_caption;
+        } else {
+          $t = $block->toString();
+        }
+
+        $r[$block->id] = [
+          'words' => str_word_count($t),
+          'chars' => strlen($t),
+          'type' => $block->type,
+          'text' => $t,
+        ];
+      }
+    }
+    $total = [];
+    foreach($r as $item) {
+      if($total[$item['type']] === null) {
+        $total[$item['type']] = [
+          'words' => 0,
+          'chars' => 0,
+          'count' => 0,
+        ];
+      }
+      $total[$item['type']]['words'] += $item['words'];
+      $total[$item['type']]['chars'] += $item['chars'];
+      $total[$item['type']]['count']++;
+
+    }
+    return $total;
+  }
+
   public function getNodesFrom($id) {
     $blocks   = [];
     $continue = false;
