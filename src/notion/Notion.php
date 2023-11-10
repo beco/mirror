@@ -26,6 +26,7 @@ class Notion {
     'child_page'  => '\b3co\notion\block\ChildPage',
     'video'       => '\b3co\notion\block\Video',
     'file'        => '\b3co\notion\block\File',
+    'callout'     => '\b3co\notion\block\Callout',
     'table_of_contents'  => '\b3co\notion\block\TableOfContents',
     'bulleted_list_item' => '\b3co\notion\block\BulletListItem',
     'numbered_list_item' => '\b3co\notion\block\NumberListItem',
