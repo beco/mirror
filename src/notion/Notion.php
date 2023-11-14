@@ -70,7 +70,7 @@ class Notion {
   }
 
   public function getStats($id) {
-    $p = $this->getPage($id);
+    $p = $this->getPage($id, false);
     $r = [];
     $b = ['paragraph', 'image', 'heading_1', 'heading_2', 'heading_3', 'title'];
     foreach($p->children as $block) {

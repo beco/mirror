@@ -31,6 +31,7 @@ if(isset($argv[1]) && preg_match('/^\w{32}$/', $argv[1])) {
 try {
   $n = new Notion($config);
   $s = $n->getStats($pid);
+  $words = 0;
   foreach($s as $t => $i) {
     printf(" - There %s %d %s%s with %d words and %d chars\n",
       $i['count'] > 1?'are':'is',
@@ -40,7 +41,9 @@ try {
       $i['words'],
       $i['chars']
     );
+    $words += $i['words'];
   }
+  printf("An aprox of %0.2f minutes of reading\n", $words/191);
 } catch(Exception $e) {
   printf("[error] no page\n");
   echo $e->getMessage();

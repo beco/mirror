@@ -20,9 +20,12 @@ class TableOfContents extends Block implements BlockInterface {
     $this->headings[] = $heading;
   }
 
-  public function toHtml() {
-    $ret  = "<p>table of contents</p>\n";
-    //
+  public function toHtml($title = false) {
+    $ret = sprintf("<a name='%s'></a>\n", $this->id);
+    if($title) {
+      $ret  = "<p>table of contents</p>\n";
+    }
+
     $last_level = 0;
     $open = 0;
     foreach($this->headings as $h) {

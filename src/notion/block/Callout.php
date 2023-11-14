@@ -20,18 +20,39 @@ class Callout extends Block implements BlockInterface {
   }
 
   public function toString() {
-    return sprintf("[%s] %s", $this->icon, $this->text_object->toString());
+    $ret = '';
+    if($this->has_children) {
+      foreach($this->children as $block) {
+        $ret .= sprintf("%s\n", $block->toString());
+      }
+    }
+    return $this->icon . " " . $ret;
   }
 
   public function toMarkDown() {
-    return sprintf("> %s %s\n", $this->icon, $this->text_object->getMarkDown());
+    if($this->has_children != true) {
+        return sprintf("> %s %s\n", $this->icon, $this->text_object->getMarkDown());
+    }
+    $ret = '';
+    if($this->has_children) {
+      foreach($this->children as $block) {
+        $ret .= sprintf("> %s\n", $block->toMarkDown());
+      }
+    }
+    return sprintf("> %s \n%s", $this->icon, $ret);
   }
 
   public function toHtml($container = 'div') {
-    return sprintf("<div class='callout' style='background-color:%s;border-radius:20px;padding:20px;margin-bottom:10px'>%s&nbsp;&nbsp;%s</div>\n",
+    $ret = $ret = $this->text_object->getHtml();
+    if($this->has_children) {
+      foreach($this->children as $block) {
+        $ret .= sprintf("%s\n", $block->toHtml());
+      }
+    }
+    return sprintf("<div class='callout' style='background-color:%s;border-radius:20px;padding:20px;margin-bottom:10px'>%s&nbsp;&nbsp;%s\n</div>\n",
       Color::getHex($this->color),
       $this->icon,
-      $this->text_object->getHtml()
+      $ret
     );
   }
 }
