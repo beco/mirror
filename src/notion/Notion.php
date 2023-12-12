@@ -167,7 +167,7 @@ class Notion {
 
     if(Notion::$endpoints[$endpoint]['optional'] !== null) {
       foreach(Notion::$endpoints[$endpoint]['optional'] as $optional) {
-        if($optionals[$optional] !== null) {
+        if(isset($optionals[$optional]) && $optionals[$optional] !== null) {
           $ps[] = sprintf("%s=%s", $optional, $optionals[$optional]);
         }
       }
