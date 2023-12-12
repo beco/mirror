@@ -33,7 +33,9 @@ class Page extends Block {
     $this->type   = 'page';
     $this->upload = $upload;
 
-    $this->icon   = $data['icon']['emoji'];
+    if(isset($data['icon']['emoji'])) {
+      $this->icon = $data['icon']['emoji'];
+    }
 
     if($data['cover']) {
       $this->cover = new Image($data, $this);

@@ -33,6 +33,10 @@ class Column extends Block implements BlockInterface {
   }
 
   public function toHtml($container = 'div') {
+    $this->children_body = $this->getChildrenBody();
+    if($this->hasTemplate('html')) {
+      return $this->renderTemplate('html');
+    }
     $ret = '';
     if($this->has_children) {
       foreach($this->children as $block) {

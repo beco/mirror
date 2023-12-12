@@ -99,8 +99,13 @@ class Block {
     $vars = [];
     if(preg_match_all('/\[:([a-z0_9\_]+)\]/', $tmp, $m)) {
       foreach($m[1] as $key) {
-        if(!$vars[$key]) {
-          $vars[$key] = $this->$key;
+        if(!isset($vars[$key])) {
+          if($this->$key != null) {
+            $vars[$key] = $this->$key;
+          } else {
+            $vars[$key] = "";
+          }
+
           $tmp = preg_replace(
             sprintf('/\[:%s\]/', $key),
             preg_replace('/\$/', '\\\$', $this->$key),

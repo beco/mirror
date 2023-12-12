@@ -6,6 +6,16 @@
     .toggle-body {
       padding-left: 30px;
     }
+    .column_list {
+      display: flex;
+      width: 100%;
+    }
+    .column {
+      flex: 1;
+    }
+    .column img {
+      max-width: 100%;
+    }
     </style>
   </head>
   <body>
