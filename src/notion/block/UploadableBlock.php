@@ -28,7 +28,7 @@ class UploadableBlock extends Block {
     $this->notion_url = $data[$type][$data[$type]['type']]['url'];
 
     $this->extension = '';
-    if(preg_match('/^http.*\/.*?\.(\w+)\?.*$/', $this->notion_url, $m)) {
+    if(preg_match('/^http.*\/.*?\.(\w+)\??.*$/', $this->notion_url, $m)) {
       $this->extension = $m[1];
     } else {
       printf("NO EXTENSION\n%s\n", $this->notion_url);
